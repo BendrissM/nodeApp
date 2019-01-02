@@ -1,0 +1,51 @@
+doctype html
+html
+    head
+        title NodeJs app
+        link(href="/assets/bootstrap/dist/css/bootstrap.css", rel="stylesheet")
+        link(href="/css/style.css", rel="stylesheet")
+        
+    body
+        nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+            .container
+                a.navbar-brand(href='/') NodeApp
+                button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarSupportedContent.collapse.navbar-collapse
+                    ul.navbar-nav.mr-auto
+                        li.nav-item
+                            a.nav-link(href='/')
+                                | Home 
+                                span.sr-only (current)
+                        if user
+                            li.nav-item
+                                a.nav-link(href='/articles/create') Add articles
+                    ul.navbar-nav.my-2.my-lg-0
+                        if user
+                            li.nav-item.dropdown
+                                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                    span=user.username
+                                .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                                    a.dropdown-item(href='/users/logout') Logout
+                        else
+                            li.nav-item
+                                a.nav-link.mr-sm-2(href='/users/register') Register
+                            li.nav-item
+                                a.nav-link.my-2.my-sm-0(href='/users/login') Login
+        br
+        .container
+            != messages('messages', locals)
+            if errors
+                div.alert.alert-danger
+                    ul
+                        each error in errors
+                            li=error.msg
+            block content
+            br
+            hr
+            footer
+                p Copyright &copy; 2018
+        script(src="/assets/jquery/dist/jquery.js")
+        script(src="/assets/bootstrap/dist/js/bootstrap.js")
+        script(src="/js/main.js")
+                

@@ -1,0 +1,29 @@
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "simple node app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Moncef Bendriss",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "express": "^4.16.4",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.0",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.3.11",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "expect": "^23.6.0",
+    "supertest": "^3.3.0"
+  }
+}

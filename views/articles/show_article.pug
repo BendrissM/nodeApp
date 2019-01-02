@@ -1,0 +1,12 @@
+extends ../layouts/master
+
+block content
+    .container
+        h1=article.title
+        p written by #{author}
+        p=article.body
+        hr
+        if user
+            if user.id == article.author
+                a.btn.btn-warning(href="/articles/edit/"+article.id, style="color:white;") Edit
+                a.btn.btn-danger.delete-article(href="#", style="color:white;float:right;", data-id=article.id) Delete
