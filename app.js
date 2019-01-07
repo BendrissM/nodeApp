@@ -1,3 +1,17 @@
+var env = process.env.NODE_ENV || "development";
+console.log("env*****", env);
+
+if (env === "development") {
+  process.env.PORT = 3000;
+  process.env.MONGODB_URI = "mongodb://localhost:27017/nodeapp";
+} else if (env === "test") {
+  process.env.PORT = 3000;
+  process.env.MONGODB_URI = "mongodb://localhost:27017/nodeappTest";
+} else if (env === "production") {
+  process.env.MONGODB_URI =
+    "mongodb://benoxy:moncefbdofus98@ds251284.mlab.com:51284/nodeapp";
+}
+
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -5,7 +19,7 @@ const session = require("express-session");
 const { mongoose } = require("./database/mongoose");
 const passport = require("passport");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // init Routes
 let indexRouter = require("./routes/index");
@@ -61,12 +75,12 @@ let db = mongoose.connection;
 
 // check connection
 db.once("open", () => {
-  /* console.log("connected to mongodb"); */
+  console.log("connected to mongodb");
 });
 
 // check for db errors
 db.on("error", err => {
-  console.log(err);
+  console.log("mongodb Err **", err);
 });
 
 // start server
