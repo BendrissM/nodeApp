@@ -66,17 +66,18 @@ exports.article_create_post = (req, res) => {
   } else {
     let article = new Article();
     article.title = req.body.title;
-    article.author = req.user._id;
+    article.author = req.body.author;
     article.body = req.body.body;
-    article.save(err => {
-      if (err) {
-        console.log(err);
-        return;
-      } else {
-        req.flash("success", "Article Created");
-        res.redirect("/articles/" + article.id);
-      }
-    });
+    article
+      .save()
+      .then(doc => {
+        /* req.flash("success", "Article Created");
+      res.redirect("/articles/" + article.id); */
+        res.status(200).send(doc);
+      })
+      .catch(e => {
+        res.status(400).send("unable to create : " + e);
+      });
   }
 };
 

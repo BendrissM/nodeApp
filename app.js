@@ -1,12 +1,11 @@
 const express = require("express");
 const path = require("path");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const config = require("./config/database");
+const mongoose = require("./database/mongoose");
 const passport = require("passport");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // init Routes
 let indexRouter = require("./routes/index");
@@ -58,17 +57,11 @@ app.use("/articles", articlesRouter);
 app.use("/users", usersRouter);
 
 // connect to databse
-mongoose.connect(
-  config.database,
-  {
-    useNewUrlParser: true
-  }
-);
 let db = mongoose.connection;
 
 // check connection
 db.once("open", () => {
-  console.log("connected to mongodb");
+  /* console.log("connected to mongodb"); */
 });
 
 // check for db errors
@@ -80,3 +73,5 @@ db.on("error", err => {
 app.listen(port, () => {
   console.log("server satrted on port" + port);
 });
+
+exports.app = app;

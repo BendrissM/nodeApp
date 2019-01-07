@@ -4,7 +4,9 @@
   "description": "simple node app",
   "main": "app.js",
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test": "mocha tests/*.test.js --colors",
+    "test-watch": "nodemon --exec \"npm test\""
   },
   "author": "Moncef Bendriss",
   "license": "ISC",
