@@ -1,22 +1,11 @@
-var env = process.env.NODE_ENV || "development";
-console.log("env*****", env);
-
-if (env === "development") {
-  process.env.PORT = 3000;
-  process.env.MONGODB_URI = "mongodb://localhost:27017/nodeapp";
-} else if (env === "test") {
-  process.env.PORT = 3000;
-  process.env.MONGODB_URI = "mongodb://localhost:27017/nodeappTest";
-} else if (env === "production") {
-  process.env.MONGODB_URI =
-    "mongodb://benoxy:moncefbdofus98@ds251284.mlab.com:51284/nodeapp";
-}
+require("./config/node_env");
 
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const { mongoose } = require("./database/mongoose");
+
 const passport = require("passport");
 const app = express();
 const port = process.env.PORT;
