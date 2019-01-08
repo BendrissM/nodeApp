@@ -64,7 +64,7 @@ let db = mongoose.connection;
 
 // check connection
 db.once("open", () => {
-  console.log("connected to mongodb");
+  /* console.log("connected to mongodb"); */
 });
 
 // check for db errors
@@ -74,7 +74,7 @@ db.on("error", err => {
 
 // start server
 app.listen(port, () => {
-  console.log("server satrted on port" + port);
+  /* console.log("server satrted on port" + port); */
 });
 
 exports.app = app;

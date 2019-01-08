@@ -8,7 +8,7 @@ beforeEach(done => {
   Article.deleteMany({}).then(() => done());
 });
 
-describe("POST /articles", () => {
+describe("POST /articles/create", () => {
   it("should create an article", done => {
     let title = "article test";
     let author = "moncef";

@@ -60,9 +60,10 @@ exports.article_create_validation = [
 exports.article_create_post = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.render("articles/add_article", {
+    /* res.render("articles/add_article", {
       errors: errors.array()
-    });
+    }); */
+    res.status(400).send();
   } else {
     let article = new Article();
     article.title = req.body.title;
