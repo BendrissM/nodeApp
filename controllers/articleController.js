@@ -4,16 +4,17 @@ const { body, validationResult } = require("express-validator/check");
 
 // Display List of articles
 exports.article_list = (req, res) => {
-  Article.find({}, (err, articles) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("articles/index", {
-        title: "Articles",
-        articles: articles
-      });
-    }
-  });
+  Article.find({})
+    .then(articles => {
+      /* res.render("articles/index", {
+      title: "Articles",
+      articles: articles
+    }); */
+      res.send(articles);
+    })
+    .catch(e => {
+      res.status(400).send("Unable to list articles " + e);
+    });
 };
 
 // Display detail page for an article
@@ -60,9 +61,10 @@ exports.article_create_validation = [
 exports.article_create_post = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.render("articles/add_article", {
+    /* res.render("articles/add_article", {
       errors: errors.array()
-    });
+    }); */
+    res.status(400).send("unable to create : " + e);
   } else {
     let article = new Article();
     article.title = req.body.title;
