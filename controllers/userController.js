@@ -51,37 +51,24 @@ exports.user_register_validation = [
 exports.user_register_post = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.render("auth/register", {
-      errors: errors.array()
-    });
+    res.status(400).send(errors);
   } else {
     let user = new User({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password
     });
-    bcrypt.genSalt(10, (err, salt) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      bcrypt.hash(user.password, salt, (err, hash) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        user.password = hash;
-        user.save(err => {
-          if (err) {
-            console.log(err);
-            return;
-          } else {
-            req.flash("success", "You have been registred now you can login !");
-            res.redirect("/users/login");
-          }
-        });
+    user
+      .save()
+      .then(() => {
+        return user.genAuthToken();
+      })
+      .then(token => {
+        res.header("x-auth", token).send(user);
+      })
+      .catch(e => {
+        res.status(400).send(e);
       });
-    });
   }
 };
 

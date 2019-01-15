@@ -74,7 +74,7 @@ db.on("error", err => {
 
 // start server
 app.listen(port, () => {
-  /* console.log("server satrted on port" + port); */
+  console.log("server satrted on port" + port);
 });
 
 exports.app = app;
